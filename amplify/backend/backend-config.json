@@ -1,0 +1,116 @@
+{
+  "api": {
+    "mybookstore": {
+      "dependsOn": [
+        {
+          "attributes": [
+            "UserPoolId"
+          ],
+          "category": "auth",
+          "resourceName": "mybookstore6887bad2"
+        }
+      ],
+      "output": {
+        "authConfig": {
+          "additionalAuthenticationProviders": [
+            {
+              "apiKeyConfig": {
+                "apiKeyExpirationDate": "2024-03-07T07:36:49.792Z",
+                "apiKeyExpirationDays": 7,
+                "description": "Guest user access to books"
+              },
+              "authenticationType": "API_KEY"
+            }
+          ],
+          "defaultAuthentication": {
+            "authenticationType": "AMAZON_COGNITO_USER_POOLS",
+            "userPoolConfig": {
+              "userPoolId": "authmybookstore6887bad2"
+            }
+          }
+        }
+      },
+      "providerPlugin": "awscloudformation",
+      "service": "AppSync"
+    }
+  },
+  "auth": {
+    "mybookstore6887bad2": {
+      "customAuth": false,
+      "dependsOn": [],
+      "frontendAuthConfig": {
+        "mfaConfiguration": "OFF",
+        "mfaTypes": [
+          "SMS"
+        ],
+        "passwordProtectionSettings": {
+          "passwordPolicyCharacters": [],
+          "passwordPolicyMinLength": 8
+        },
+        "signupAttributes": [
+          "EMAIL"
+        ],
+        "socialProviders": [],
+        "usernameAttributes": [],
+        "verificationMechanisms": [
+          "EMAIL"
+        ]
+      },
+      "providerPlugin": "awscloudformation",
+      "service": "Cognito"
+    }
+  },
+  "function": {
+    "createOrder": {
+      "build": true,
+      "providerPlugin": "awscloudformation",
+      "service": "Lambda"
+    },
+    "processPayment": {
+      "build": true,
+      "providerPlugin": "awscloudformation",
+      "service": "Lambda"
+    }
+  },
+  "parameters": {
+    "AMPLIFY_function_createOrder_deploymentBucketName": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "createOrder"
+        }
+      ]
+    },
+    "AMPLIFY_function_createOrder_s3Key": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "createOrder"
+        }
+      ]
+    },
+    "AMPLIFY_function_processPayment_deploymentBucketName": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "processPayment"
+        }
+      ]
+    },
+    "AMPLIFY_function_processPayment_s3Key": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "processPayment"
+        }
+      ]
+    }
+  },
+  "storage": {
+    "bookImages": {
+      "dependsOn": [],
+      "providerPlugin": "awscloudformation",
+      "service": "S3"
+    }
+  }
+}
